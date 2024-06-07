@@ -4,45 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Election Prediction AI</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
 <body>
-    <header>
+    <div class="container">
         <h1>Election Prediction AI</h1>
-    </header>
-    <main>
-        <section id="description">
-            <h2>Project Description</h2>
-            <p>
-                For this year’s cornerstone project, I have created a website that uses AI and social media to predict the results of elections. I wanted to do this project because I have always found politics fascinating, and with the recent surge in popularity of AI, I wanted to mix the two into a single project. In the US, elections are an important part of the democratic process, but I wanted to see how public perception of the election on the internet actually correlates to votes in real life. Additionally, I think that understanding how trends in media can influence elections is extremely important for understanding the changing world of politics. My driving question was: How do trends in media, and the overall opinion of media platforms, correlate with actual election results? I aimed to find this out by analyzing large datasets from reddit, facebook, and twitter, running them through an AI learning model, and visualizing the data, comparing it to actual elections to test for accuracy. I found this project meaningful because it taught me so much about how people can be influenced by the media, and how seemingly small trends in social media can drastically change election results. Understanding this is crucial in the digital age, and will continue to increase in the future.
-            </p>
-            <p>
-                Overall, I found this project to be greatly beneficial to my learning of politics and computer science. Long hours sifting through data, understanding federal policy, and social media trends have taught me how to tackle daunting challenges, and doing this project has opened up a new area of interest for me: Politics, media, and psychology. For a future project, I would like to build on this by understanding the psychology behind elections and the media, how the two can be combined, and how they affect us as a country.
-            </p>
-        </section>
-        <section id="map-section">
-            <h2>US Map</h2>
-            <div id="us-map"></div>
-        </section>
-        <section id="controls">
-            <h2>Predict Election Results</h2>
-            <label for="social-media">Choose a social media platform:</label>
-            <select id="social-media">
-                <option value="reddit">Reddit (More Democratic)</option>
-                <option value="twitter">Twitter (Mixed)</option>
-                <option value="facebook">Facebook (More Republican)</option>
+        
+        <div class="paragraphs">
+            <p id="paragraph1">For this year’s cornerstone project, I have created a website that uses AI and social media to predict the results of elections...</p>
+            <p id="paragraph2">Overall, I found this project to be greatly beneficial to my learning of politics and computer science...</p>
+        </div>
+        
+        <div class="dropdowns">
+            <label for="socialMedia">Choose a social media platform:</label>
+            <select id="socialMedia" onchange="generatePresetData()">
+                <option value="reddit">Reddit</option>
+                <option value="twitter">Twitter</option>
+                <option value="facebook">Facebook</option>
             </select>
-            <button id="generate-results">Generate Results</button>
-        </section>
-        <section id="results">
-            <h2>Election Results</h2>
-            <div id="results-container"></div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Election Prediction AI</p>
-    </footer>
+        </div>
+
+        <div id="map"></div>
+    </div>
+    <script src="js/scripts.js"></script>
 </body>
 </html>
