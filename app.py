@@ -1,4 +1,4 @@
-# app.py
+
 from flask import Flask, render_template
 from us_map import create_us_map
 
