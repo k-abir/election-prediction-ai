@@ -4,31 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Election Prediction Web App</title>
-    <!-- Add necessary CSS and JavaScript libraries here -->
+    <!-- Include necessary CSS file for styling -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
+        <!-- Header section containing the title of the web app -->
         <h1>Election Prediction Web App</h1>
     </header>
     <nav>
+        <!-- Navigation section for selecting social media platform and triggering prediction -->
         <label for="socialMedia">Choose a Social Media Platform:</label>
+        <!-- Dropdown menu for selecting social media platform -->
         <select id="socialMedia">
             <option value="reddit">Reddit</option>
             <option value="facebook">Facebook</option>
             <option value="twitter">Twitter</option>
         </select>
+        <!-- Button to trigger prediction based on selected social media platform -->
         <button onclick="predictResults()">Predict</button>
     </nav>
     <main>
+        <!-- Main content area -->
         <section id="prediction">
+            <!-- Prediction results section -->
             <!-- Prediction results will be displayed here -->
         </section>
         <section id="data">
+            <!-- Data table section -->
             <!-- Data table of US states and their republican and democrat percentages will be displayed here -->
         </section>
     </main>
     <footer>
+        <!-- Footer section containing your text statements -->
         <p>
             The goal of this project was to create a comprehensive web app that can predict election results using data from social media, and general political trends, such as dark money... (Your full text statement)
         </p>
@@ -36,6 +44,7 @@
             For this year’s cornerstone project, I have created a website that uses AI and social media to predict the results of elections... (Your full text statement)
         </p>
     </footer>
+    <!-- Include JavaScript file for handling prediction and data visualization -->
     <script src="script.js"></script>
 </body>
 </html>
