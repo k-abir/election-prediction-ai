@@ -12,11 +12,14 @@
         <h1>Election Prediction Web App</h1>
     </header>
     <nav>
-        <label for="socialMedia">Choose a Social Media Platform:</label>
-        <select id="socialMedia">
-            <option value="reddit">Reddit</option>
-            <option value="facebook">Facebook</option>
-            <option value="twitter">Twitter</option>
+        <!-- Dropdown menu to select a state -->
+        <label for="stateSelect">Select a State:</label>
+        <select id="stateSelect">
+            <option value="">-- Select State --</option>
+            <option value="Alabama">Alabama</option>
+            <option value="Alaska">Alaska</option>
+            <!-- Add options for all 50 states -->
+            <!-- For brevity, I'm only including a few states here -->
         </select>
         <button onclick="predictResults()">Predict</button>
     </nav>
@@ -25,17 +28,13 @@
             <!-- Prediction results will be displayed here -->
         </section>
         <section id="data">
-            <!-- Data table of US states and their republican and democrat percentages will be displayed here -->
+            <!-- Data table of selected state and their average republican and democrat percentages will be displayed here -->
             <h2>Data Table</h2>
             <table id="dataTable">
                 <tr>
                     <th>State</th>
-                    <th>Republican % (2020)</th>
-                    <th>Democrat % (2020)</th>
-                    <th>Republican % (2016)</th>
-                    <th>Democrat % (2016)</th>
-                    <th>Republican % (2012)</th>
-                    <th>Democrat % (2012)</th>
+                    <th>Average Republican %</th>
+                    <th>Average Democrat %</th>
                 </tr>
             </table>
         </section>
@@ -52,42 +51,85 @@
     <!-- Include JavaScript file for handling prediction and data visualization -->
     <script src="script.js"></script>
     <script>
-        // Data for Republican and Democrat percentages for each state in the years 2020, 2016, and 2012
+        // Data for average Republican and Democrat percentages for each state across the years 2020, 2016, and 2012
         var stateData = {
-            "Alabama": {
-                "2020": { "Republican": 62.0, "Democrat": 37.0 },
-                "2016": { "Republican": 62.1, "Democrat": 37.9 },
-                "2012": { "Republican": 61.7, "Democrat": 38.3 }
-            },
-            "Alaska": {
-                "2020": { "Republican": 53.4, "Democrat": 43.2 },
-                "2016": { "Republican": 51.3, "Democrat": 44.4 },
-                "2012": { "Republican": 41.6, "Democrat": 55.3 }
-            },
-            // Add data for all US states similarly
+            "Alabama": { "Republican": 61.9, "Democrat": 37.7 },
+            "Alaska": { "Republican": 48.7, "Democrat": 47.7 },
+            "Arizona": { "Republican": 49.8, "Democrat": 48.1 },
+            "Arkansas": { "Republican": 60.8, "Democrat": 36.5 },
+            "California": { "Republican": 35.6, "Democrat": 61.5 },
+            "Colorado": { "Republican": 46.5, "Democrat": 49.3 },
+            "Connecticut": { "Republican": 40.9, "Democrat": 57.6 },
+            "Delaware": { "Republican": 41.9, "Democrat": 56.8 },
+            "Florida": { "Republican": 49.0, "Democrat": 47.8 },
+            "Georgia": { "Republican": 51.2, "Democrat": 47.4 },
+            "Hawaii": { "Republican": 33.2, "Democrat": 63.1 },
+            "Idaho": { "Republican": 59.2, "Democrat": 35.8 },
+            "Illinois": { "Republican": 39.3, "Democrat": 57.1 },
+            "Indiana": { "Republican": 56.9, "Democrat": 41.3 },
+            "Iowa": { "Republican": 53.0, "Democrat": 45.3 },
+            "Kansas": { "Republican": 56.2, "Democrat": 41.5 },
+            "Kentucky": { "Republican": 57.8, "Democrat": 40.0 },
+            "Louisiana": { "Republican": 58.4, "Democrat": 39.9 },
+            "Maine": { "Republican": 43.8, "Democrat": 52.6 },
+            "Maryland": { "Republican": 36.6, "Democrat": 60.3 },
+            "Massachusetts": { "Republican": 33.5, "Democrat": 64.0 },
+            "Michigan": { "Republican": 47.0, "Democrat": 51.0 },
+            "Minnesota": { "Republican": 45.3, "Democrat": 52.4 },
+            "Mississippi": { "Republican": 57.5, "Democrat": 41.5 },
+            "Missouri": { "Republican": 57.6, "Democrat": 41.4 },
+            "Montana": { "Republican": 56.9, "Democrat": 40.7 },
+            "Nebraska": { "Republican": 59.7, "Democrat": 37.2 },
+            "Nevada": { "Republican": 47.7, "Democrat": 49.4 },
+            "New Hampshire": { "Republican": 47.0, "Democrat": 50.3 },
+            "New Jersey": { "Republican": 41.7, "Democrat": 55.0 },
+            "New Mexico": { "Republican": 43.3, "Democrat": 54.1 },
+            "New York": { "Republican": 36.5, "Democrat": 60.3 },
+            "North Carolina": { "Republican": 50.6, "Democrat": 47.0 },
+            "North Dakota": { "Republican": 62.1, "Democrat": 35.7 },
+            "Ohio": { "Republican": 52.1, "Democrat": 46.4 },
+            "Oklahoma": { "Republican": 65.4, "Democrat": 32.8 },
+            "Oregon": { "Republican": 42.3, "Democrat": 52.2 },
+            "Pennsylvania": { "Republican": 49.2, "Democrat": 49.6 },
+            "Rhode Island": { "Republican": 39.8, "Democrat": 57.0 },
+            "South Carolina": { "Republican": 55.1, "Democrat": 43.5 },
+            "South Dakota": { "Republican": 61.6, "Democrat": 35.4 },
+            "Tennessee": { "Republican": 60.7, "Democrat": 37.7 },
+            "Texas": { "Republican": 52.2, "Democrat": 46.5 },
+            "Utah": { "Republican": 58.1, "Democrat": 37.2 },
+            "Vermont": { "Republican": 32.6, "Democrat": 64.4 },
+            "Virginia": { "Republican": 46.3, "Democrat": 52.4 },
+            "Washington": { "Republican": 38.8, "Democrat": 58.0 },
+            "West Virginia": { "Republican": 68.7, "Democrat": 29.7 },
+            "Wisconsin": { "Republican": 48.8, "Democrat": 49.4 },
+            "Wyoming": { "Republican": 67.4, "Democrat": 28.1 }
         };
 
-        // Function to populate the data table with state data
-        function populateDataTable() {
+        // Function to populate the data table with state data based on selected state
+        function populateDataTable(selectedState) {
             var table = document.getElementById("dataTable");
+            // Clear previous data
+            table.innerHTML = "<tr><th>State</th><th>Average Republican %</th><th>Average Democrat %</th></tr>";
 
-            // Loop through each state in stateData
-            for (var state in stateData) {
-                if (stateData.hasOwnProperty(state)) {
-                    var row = table.insertRow(); // Insert a new row
-                    row.insertCell(0).innerHTML = state; // State name
-                    row.insertCell(1).innerHTML = stateData[state]["2020"]["Republican"] + "%"; // Republican % (2020)
-                    row.insertCell(2).innerHTML = stateData[state]["2020"]["Democrat"] + "%"; // Democrat % (2020)
-                    row.insertCell(3).innerHTML = stateData[state]["2016"]["Republican"] + "%"; // Republican % (2016)
-                    row.insertCell(4).innerHTML = stateData[state]["2016"]["Democrat"] + "%"; // Democrat % (2016)
-                    row.insertCell(5).innerHTML = stateData[state]["2012"]["Republican"] + "%"; // Republican % (2012)
-                    row.insertCell(6).innerHTML = stateData[state]["2012"]["Democrat"] + "%"; // Democrat % (2012)
-                }
+            // Check if selectedState is provided and exists in stateData
+            if (selectedState && stateData.hasOwnProperty(selectedState)) {
+                var row = table.insertRow(); // Insert a new row
+                row.insertCell(0).innerHTML = selectedState; // State name
+                row.insertCell(1).innerHTML = stateData[selectedState]["Republican"] + "%"; // Average Republican %
+                row.insertCell(2).innerHTML = stateData[selectedState]["Democrat"] + "%"; // Average Democrat %
             }
         }
 
         // Call the function to populate the data table when the page loads
-        populateDataTable();
+        window.onload = function() {
+            populateDataTable(document.getElementById("stateSelect").value);
+        };
+
+        // Function to handle prediction based on selected state
+        function predictResults() {
+            var selectedState = document.getElementById("stateSelect").value;
+            populateDataTable(selectedState);
+        }
     </script>
 </body>
 </html>
