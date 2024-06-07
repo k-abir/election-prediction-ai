@@ -26,6 +26,18 @@
         </section>
         <section id="data">
             <!-- Data table of US states and their republican and democrat percentages will be displayed here -->
+            <h2>Data Table</h2>
+            <table id="dataTable">
+                <tr>
+                    <th>State</th>
+                    <th>Republican % (2020)</th>
+                    <th>Democrat % (2020)</th>
+                    <th>Republican % (2016)</th>
+                    <th>Democrat % (2016)</th>
+                    <th>Republican % (2012)</th>
+                    <th>Democrat % (2012)</th>
+                </tr>
+            </table>
         </section>
     </main>
     <footer>
@@ -39,5 +51,43 @@
     </footer>
     <!-- Include JavaScript file for handling prediction and data visualization -->
     <script src="script.js"></script>
+    <script>
+        // Data for Republican and Democrat percentages for each state in the years 2020, 2016, and 2012
+        var stateData = {
+            "Alabama": {
+                "2020": { "Republican": 62.0, "Democrat": 37.0 },
+                "2016": { "Republican": 62.1, "Democrat": 37.9 },
+                "2012": { "Republican": 61.7, "Democrat": 38.3 }
+            },
+            "Alaska": {
+                "2020": { "Republican": 53.4, "Democrat": 43.2 },
+                "2016": { "Republican": 51.3, "Democrat": 44.4 },
+                "2012": { "Republican": 41.6, "Democrat": 55.3 }
+            },
+            // Add data for all US states similarly
+        };
+
+        // Function to populate the data table with state data
+        function populateDataTable() {
+            var table = document.getElementById("dataTable");
+
+            // Loop through each state in stateData
+            for (var state in stateData) {
+                if (stateData.hasOwnProperty(state)) {
+                    var row = table.insertRow(); // Insert a new row
+                    row.insertCell(0).innerHTML = state; // State name
+                    row.insertCell(1).innerHTML = stateData[state]["2020"]["Republican"] + "%"; // Republican % (2020)
+                    row.insertCell(2).innerHTML = stateData[state]["2020"]["Democrat"] + "%"; // Democrat % (2020)
+                    row.insertCell(3).innerHTML = stateData[state]["2016"]["Republican"] + "%"; // Republican % (2016)
+                    row.insertCell(4).innerHTML = stateData[state]["2016"]["Democrat"] + "%"; // Democrat % (2016)
+                    row.insertCell(5).innerHTML = stateData[state]["2012"]["Republican"] + "%"; // Republican % (2012)
+                    row.insertCell(6).innerHTML = stateData[state]["2012"]["Democrat"] + "%"; // Democrat % (2012)
+                }
+            }
+        }
+
+        // Call the function to populate the data table when the page loads
+        populateDataTable();
+    </script>
 </body>
 </html>
