@@ -97,4 +97,53 @@
             "Utah": { "Republican": 58.1, "Democrat": 37.2 },
             "Vermont": { "Republican": 32.6, "Democrat": 64.4 },
             "Virginia": { "Republican": 46.3, "Democrat": 52.4 },
-            "Washington": { "Republican": 38.8,"Democrat": 61.2}
+            "Washington": { "Republican": 38.8,, "Democrat": 58.1 },
+            "West Virginia": { "Republican": 69.2, "Democrat": 29.6 },
+            "Wisconsin": { "Republican": 48.8, "Democrat": 49.3 },
+            "Wyoming": { "Republican": 68.2, "Democrat": 28.7 }
+        };
+
+        // Function to populate the dropdown menu with options for all 50 states
+        function populateDropdown() {
+            var select = document.getElementById("stateSelect");
+
+            // Loop through each state in stateData
+            for (var state in stateData) {
+                if (stateData.hasOwnProperty(state)) {
+                    var option = document.createElement("option"); // Create a new option element
+                    option.text = state; // State name
+                    option.value = state; // State value
+                    select.add(option); // Add the option to the dropdown menu
+                }
+            }
+        }
+
+        // Call the function to populate the dropdown menu when the page loads
+        window.onload = function() {
+            populateDropdown();
+            populateDataTable(document.getElementById("stateSelect").value);
+        };
+
+        // Function to populate the data table with state data based on selected state
+        function populateDataTable(selectedState) {
+            var table = document.getElementById("dataTable");
+            // Clear previous data
+            table.innerHTML = "<tr><th>State</th><th>Average Republican %</th><th>Average Democrat %</th></tr>";
+
+            // Check if selectedState is provided and exists in stateData
+            if (selectedState && stateData.hasOwnProperty(selectedState)) {
+                var row = table.insertRow(); // Insert a new row
+                row.insertCell(0).innerHTML = selectedState; // State name
+                row.insertCell(1).innerHTML = stateData[selectedState]["Republican"] + "%"; // Average Republican %
+                row.insertCell(2).innerHTML = stateData[selectedState]["Democrat"] + "%"; // Average Democrat %
+            }
+        }
+
+        // Function to handle prediction based on selected state
+        function predictResults() {
+            var selectedState = document.getElementById("stateSelect").value;
+            populateDataTable(selectedState);
+        }
+    </script>
+</body>
+</html>
